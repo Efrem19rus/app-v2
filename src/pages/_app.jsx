@@ -1,7 +1,12 @@
-import '../styles/globals.css'
+import { LinguiProvider } from "@/lib/lingui/provider";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <LinguiProvider pageProps={pageProps}>
+      <Component {...pageProps} />
+    </LinguiProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

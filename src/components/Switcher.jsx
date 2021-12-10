@@ -4,7 +4,7 @@ import { t } from "@lingui/macro";
 
 export function Switcher() {
   const router = useRouter();
-  const [locale, setLocale] = useState(router.locale.split("-")[0]);
+  const locale = router.locale.split("-")[0];
 
   const languages = {
     en: t`English`,
@@ -17,12 +17,12 @@ export function Switcher() {
     languages["pseudo"] = t`Pseudo`;
   }
 
-  useEffect(() => {
-    router.push(router.pathname, router.pathname, { locale });
-  }, [locale, router]);
+  const onLocaleChange = (evt) => {
+    router.push(router.pathname, router.pathname, { locale: evt.target.value });
+  };
 
   return (
-    <select value={locale} onChange={(evt) => setLocale(evt.target.value)}>
+    <select value={locale} onChange={onLocaleChange}>
       {Object.keys(languages).map((locale) => {
         return (
           <option value={locale} key={locale}>

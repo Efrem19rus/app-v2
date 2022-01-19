@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   i18n: {
-    locales: ["en", "sr", "es", "pseudo"],
+    locales: ["en", "es", "pseudo"],
     defaultLocale: "en",
   },
   async redirects() {

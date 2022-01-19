@@ -1,6 +1,19 @@
 import Head from "next/head";
-
 import { HomePage } from "@/components/pages/home";
+import { loadTranslation } from "@/utils/lingui";
+
+export const getStaticProps = async (ctx) => {
+  const translation = await loadTranslation(
+    ctx.locale,
+    process.env.NODE_ENV === "production"
+  );
+
+  return {
+    props: {
+      translation,
+    },
+  };
+};
 
 export default function Home() {
   return (

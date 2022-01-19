@@ -31,6 +31,13 @@ function MyApp({ Component, pageProps }) {
     firstRender.current = false;
   }
 
+  useEffect(() => {
+    if (pageProps.translation) {
+      i18n.load(locale, pageProps.translation);
+      i18n.activate(locale);
+    }
+  }, [locale, pageProps.translation]);
+
   if (pageProps.noWrappers) {
     return (
       <I18nProvider i18n={i18n}>

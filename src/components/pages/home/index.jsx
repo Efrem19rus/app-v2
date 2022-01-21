@@ -14,13 +14,20 @@ import IncreaseIcon from "@/icons/increase";
 import { Hero } from "@/components/UI/molecules/Hero";
 import { NeutralButton } from "@/components/UI/atoms/button/neutral-button";
 import { TotalLiquidityChart } from "@/components/UI/molecules/TotalLiquidityChart";
+import { useEffect, useState } from "react/cjs/react.development";
+import SkeletonElements from "@/components/UI/skeletons/SkeletonElements";
 
 export const HomePage = () => {
   const { availableCovers } = useAvailableCovers();
+  const [loading, setLoading] = useState(true);
 
-  if (!availableCovers) {
+  useEffect(() => {
+    if (availableCovers) setLoading(false);
+  }, [availableCovers]);
+
+  /* if (!availableCovers) {
     return <>loading...</>;
-  }
+  } */
 
   return (
     <>
@@ -44,7 +51,7 @@ export const HomePage = () => {
               />
             </div>
             <div className="flex md:justify-center lg:justify-start">
-              <HomeMainCard />
+              <HomeMainCard loading={loading} />
             </div>
           </div>
 
@@ -80,15 +87,20 @@ export const HomePage = () => {
           <SearchAndSortBar />
         </div>
         <Grid className="mt-14 mb-24">
-          {availableCovers.map((c) => {
-            return (
-              <Link href={`/cover/${c.key}/options`} key={c.key}>
-                <a className="rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-4e7dd9">
-                  <CoverCard details={c}></CoverCard>
-                </a>
-              </Link>
-            );
-          })}
+          {!loading &&
+            availableCovers.map((c) => {
+              return (
+                <Link href={`/cover/${c.key}/options`} key={c.key}>
+                  <a className="rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-4e7dd9">
+                    <CoverCard details={c}></CoverCard>
+                  </a>
+                </Link>
+              );
+            })}
+          {loading &&
+            [...Array(6)].map((e, i) => (
+              <SkeletonElements key={i} type={"card"}></SkeletonElements>
+            ))}
         </Grid>
         <NeutralButton className={"rounded-lg"}>Show More</NeutralButton>
       </Container>

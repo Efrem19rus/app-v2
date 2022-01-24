@@ -12,7 +12,6 @@ const SkeletonElements = ({ type, children }) => {
       case "text":
         setClasses("bg-728FB2 h-4");
         return;
-        break;
       case "card":
         setTypeState(type);
         return;
